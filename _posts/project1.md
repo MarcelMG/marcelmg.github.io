@@ -3,4 +3,11 @@ layout: post
 title: Project 1
 ---
 
-bla bla bla project description
+bla bla bla project description  
+fancy code:
+```C
+uint16_t x = 0;
+for( uint8_t i=0; i<255; ++i ){
+  x += i;
+}
+```
