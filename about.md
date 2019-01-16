@@ -19,7 +19,7 @@ Telefon: 0721/3296491
 
 
     
-![kontakt](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/kontaktdaten.png) 
+
   
 Haftungsausschluss:
 
