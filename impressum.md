@@ -2,13 +2,7 @@ Impressum
   
 Angaben gemäß § 5 TMG  
   
-Marcel Meyer-Garcia  
-Im Haberacker 5a  
-76227 Karlsruhe  
-
-Kontakt:  
-E-Mail: mmg123@gmx.de  
-Telefon: 0721/498911  
+![kontakt](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/kontaktdaten.png) 
   
   
 Haftungsausschluss:
