@@ -15,7 +15,7 @@ Im Haberacker 5a
 
 Kontakt:  
 E-Mail: mmg123@gmx.de  
-Telefon: 0721/498911  
+Telefon: 0721/3296491 
 
 
     
