@@ -1,5 +1,7 @@
-Impressum  
-  
+Diese Webseite dient ausschließlich dazu, Informationen über mein Hobby mit anderen zu teilen und somit ausdrücklich keinen gewerblichen Zwecken. Gehostet wird die Webseite vom kostenlosen Anbieter "GitHub, Inc.".  
+
+Impressum
+
 Angaben gemäß § 5 TMG  
   
 ![kontakt](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/kontaktdaten.png) 
