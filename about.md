@@ -3,23 +3,14 @@ layout: page
 title: About
 permalink: /about/
 ---
+Diese Webseite dient ausschließlich dazu, Informationen über mein Hobby mit anderen zu teilen und somit ausdrücklich keinen gewerblichen Zwecken. Gehostet wird die Webseite vom kostenlosen Anbieter "GitHub, Inc.".  
 
-Impressum  
-  
+Impressum
+
 Angaben gemäß § 5 TMG  
   
-    
-Marcel Meyer-Garcia  
-Im Haberacker 5a  
-76227 Karlsruhe  
-
-Kontakt:  
-E-Mail: mmg123@gmx.de  
-Telefon: 0721/3296491 
-
-
-    
-
+![kontakt](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/kontaktdaten.png) 
+  
   
 Haftungsausschluss:
 
