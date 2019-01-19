@@ -131,7 +131,9 @@ ISR(TIM0_COMPA_vect )
  
  If we compile the code with *avr-gcc* and run *avr-size*, we can see that this code uses only 2 bytes of RAM space (for the *tx_shift_reg* variable) and 276 bytes of program space. This is good news, since on these tiny microcontrollers memory (especially RAM) is scarse.  
    
-   
+You can find the whole source code [here.](https://github.com/MarcelMG/AVR8_BitBang_UART_TX)
+
+
 Literature:  
 [1] [Maxim AN2141: Determining Clock Accuracy Requirements for UART Communications](https://pdfserv.maximintegrated.com/en/an/AN2141.pdf)
  
