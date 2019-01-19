@@ -1,4 +1,7 @@
-
+---
+layout: post
+title: a tiny software UART for the AVR ATtiny
+---
 The serial port is a very commonly used interface for communicating between a microcontroller and a PC for debugging or sending or receiving some values. Most microcontrollers include a hardware peripheral called UART (**U**niversal **A**synchroneous **R**eceiver **T**ransmitter) which handles the serial communication, but some especially small microcontrollers (like the ATtiny24a that I am using) don't have one. In this case we can implement the communication in Software. This approach is often called *bit bang'ing* and can be used to emulate all sorts of communication peripherals. Another use case might be, that in an existing project the pins tied to the hardware-UART are already in use, in which case we could also use a software-UART. Since it is implemented in software, every GPIO pin can be used. Now let's take a quick look at how the serial communication works. As the name says, the communication is *asynchroneous*, but what does that mean?  
 The opposite is a *synchroneous* communication protocol, which has a clock signal and one (or more) data signals. At every clock cycle, the receiver knows that there's a new bit available and reads it. That way the clock frequency controls the rate at which data is being sent. In the below example diagram we can see a clock signal (blue) and a data signal (green). In this example at every rising or falling edge the data signal is sampled, i.e. we look at whether it is high (0) or low (1). This way we can receive the data which in this case results to 10001101 in binary or 141 in decimal.
 ![sync_comm_diagram](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/sync_comm_diagram.JPG)
