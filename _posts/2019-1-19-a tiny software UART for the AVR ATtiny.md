@@ -57,7 +57,7 @@ void UART_tx(char character)
  First, we check if there is still an ongoing transmission, in this case we can't send a new character. Then we fill the 'shift register' (which is actually just a variable) with our data and the START- and STOP-bits as follows:
  ![tx_shift_reg](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/tx_shift_reg.JPG)
  All that's left to do is to start the timer. So now you might wonder, where the actual transmission is happening? The answer is, in the Interrupt Service Routine (ISR). This is the function that is called every time the timer interrupt fires.
- {% highlight c colorful %}
+ {% highlight c %}
 //timer0 compare A match interrupt
 ISR(TIM0_COMPA_vect )
 {
