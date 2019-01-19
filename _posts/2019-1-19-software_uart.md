@@ -1,6 +1,6 @@
 ---
 layout: post
-title: a tiny software UART for the AVR ATtiny
+title: a tiny software UART TX for the AVR ATtiny
 ---
 The serial port is a very commonly used interface for communicating between a microcontroller and a PC for debugging or sending or receiving some values. Most microcontrollers include a hardware peripheral called UART (**U**niversal **A**synchroneous **R**eceiver **T**ransmitter) which handles the serial communication, but some especially small microcontrollers (like the ATtiny24a that I am using) don't have one. 
 
