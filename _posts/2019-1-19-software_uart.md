@@ -14,18 +14,18 @@ The opposite is a *synchroneous* communication protocol, which has a clock signa
  In this approach, we will be using a timer and interrupts, so  that in the time between the transmitted bits, the CPU is free to do other calculations. Let's walk through the code step by step to understand how it works:  
  
 First, we use some *#define*s to set which output pin we will be using. That way we can change the pin quickly.
-{% highlight c colorful %}
+{% highlight c %}
 #define TX_PORT PORTB
 #define TX_PIN  PB0
 #define TX_DDR  DDRB
 #define TX_DDR_PIN DDB0
 {% endhighlight %}
 Then we need a variable that holds our data to be sent.
-{% highlight c colorful %}
+{% highlight c %}
 volatile uint16_t tx_shift_reg = 0;
 {% endhighlight %}
 We will use it like a shift register, therefore the name. Then we need to set up the GPIO pin as an output and set up a timer (here timer 0). We configure the timer in CTC (**C**lear **T**imer on **C**ompare Match) mode. This means that the counter will count up until it's value matches the value stored in the Compare register. Then the timer is reset to zero and an interrupt is triggered. Here we want to transmit with a baud rate of 9600 which means that we need a time interval of Δt = 1/9600 ≈ 104 µs. To achieve this, we clock the timer with the main clock (the internal RC-oscillator) which is 8MHz divided by a prescaler of 8. By setting the compare value to 103, we achieve that the timer interrupt will fire every  Δt = (103+1)/1E6 ≈ 104 µs. As I explained before, since the internal RC-oscillator is quite inaccurate, we might get problems. In that case you will notice that your serial terminal will display some gibberish instead of the values you actually send. To solve this, we can tune the value of the Compare register to compensate for the clock inaccuracy. In the last step of the initialization we just need to globally enable interrupts.
- {% highlight c colorful %}
+ {% highlight c %}
    //set TX pin as output
    TX_DDR |= (1<<TX_DDR_PIN);
    TX_PORT |= (1<<TX_PIN);
@@ -43,7 +43,7 @@ We will use it like a shift register, therefore the name. Then we need to set up
    sei();
 {% endhighlight %}
 Now to transmit a character (i.e. a 8 bit value) we have the following little function:
-{% highlight c colorful %}
+{% highlight c %}
 void UART_tx(char character)
 {
    //if sending the previous character is not yet finished, return
@@ -86,7 +86,7 @@ ISR(TIM0_COMPA_vect )
 {% endhighlight %}
  First, we output the value of the LSB (least significant bit, i.e. the rightmost one) on the output pin. Then we shift the 'shift register' to the right. This way, each bit in it will be output one after the other. We then have to check, whether the shift register is zero after we did the shift. If that is the case, the transmission is finished and we can stop and reset the timer.  
  Now we've got everything we need, and can transmit a character using the UART_tx() function. If we want to send a whole string, we can do so with this simple function:  
- {% highlight c colorful %}
+ {% highlight c %}
  void UART_tx_str(char* string){
     while( *string ){
         UART_tx( *string++ );
