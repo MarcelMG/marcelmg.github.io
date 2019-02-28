@@ -2,6 +2,7 @@
 layout: post
 title: using PWM to create analog signals: centered vs. left-aligned mode
 ---
+
 Puls-Width-Modulation (PWM) can be used to implement a simple digital-to-analog converter to create analog signals with a microcontroller. There exist two modes of PWM, a left aligned asymmetric mode and a centered symmetric mode.
 
 In left aligned mode (also called *Fast PWM*), the timer/counter counts from 0 to its maximum (e.g. 255 for a 8bit timer) and resets to zero when the maximum is reached (a so called *overflow*). If we imagine plotting the counter value w.r.t. time, it would look like a sawtooth signal.
