@@ -1,6 +1,6 @@
 ---
 layout: post
-title: using PWM to create analog signals: centered vs. left-aligned mode
+title: PWM centered vs. left-aligned mode
 ---
 
 Puls-Width-Modulation (PWM) can be used to implement a simple digital-to-analog converter to create analog signals with a microcontroller. There exist two modes of PWM, a left aligned asymmetric mode and a centered symmetric mode.
