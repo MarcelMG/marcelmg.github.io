@@ -23,12 +23,21 @@ So what's nice about using DMA here is, that we can play the sound without loadi
 To test it, I created two audio files. One is a simple lookup-table to create a 5kHz sine wave. To test a real voice audio, I took a short test recording of me saying "Hello test". I used the well-known software *Audacity* to export the audio snippet as a "8bit unsigned RAW" file. This results in a binary file containing the 8bit large samples. To program this file into the microcontroller, I created a small C++ program, which converts the file into a convenient C-header file which contains the data as an array. Then it is only a matter of including the *.h file in my microcontroller-project. You can find the tool [here](https://github.com/MarcelMG/Miscellaneous/blob/master/8bit_raw_audio_2_c_header_converter/main.cpp).
 
 Now to filter the PWM signal, I built a simple two stage RC low-pass filter circuit on a breadboard. The op-amp I used is a MCP6002 which has the advantage of working with rail-to-rail input & output even at low voltages (here 3.3V from the microcontroller board). The output is connected to some headphones.
+
+
 ![pwm_dac_filter_schematic](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/pwm_dac_filter_schematic.png)
 
+
 So now let's take a look at the test results! First, the 5kHz sine wave: This is a snapshot from my oscilloscope (FYI i have a PicoScope 2204A).
+
+
 ![280kHz_PWM_5kHz_sine](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/280kHz_PWM_5kHz_sine.png)
 In red we can see the raw PWM signal, the blue one is the output after the low-pass filter. It looks pretty good, even more so considering that I used only 9 samples in a period. If we inspect the spectrum of the signal, we can though clearly see the PWM harmonics:
+
+
 ![280kHz_PWM_5kHz_sine_red_pwm_blue_filtered16kHz](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/280kHz_PWM_5kHz_sine_red_pwm_blue_filtered16kHz.png)
+
+
 The main peak is naturally at 5kHz, the frequency of the sine wave. But the next biggest peak is at 280kHz, which is the frequency of the PWM. There is another peak at 560kHz, twice the PWM frequency. In this application these harmonics are not a problem, because they are way outside the audible range or the range a normal speaker could reproduce.
 
 Ok, so now how about the voice sample? I have to say that the results are way better than I expected considering the resolution of only 8bit. The voice audio is of course no HiFi, but it is clearly understandable. I recorded the sound with my PC soundcard, you can listen to it [here](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/misc/PWM_DAC_test_sound.mp3). The recording is not perfect because the sound card input went into saturation, but It still gives a good impression of the audio quality.
