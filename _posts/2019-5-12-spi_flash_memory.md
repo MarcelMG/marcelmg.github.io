@@ -15,7 +15,7 @@ A nice feature of KiCad is the integrated 3D preview of the board. It looks like
 ![3d_board_preview](https://github.com/MarcelMG/PCB/raw/master/SPI_Flash_and_DAC/3d_board_preview.jpeg)
 After about a week, the boards together with the ICs arrived and it was time to solder them.
 
-![spi_flash_mem_breakout_back](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/spi_flash_mem_breakout_back.jpg){:height="240px" width="400px"} ![spi_flash_mem_breakout_front](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/spi_flash_mem_breakout_front.jpg){:height="240px" width="400px"}
+![spi_flash_mem_breakout_back](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/spi_flash_mem_breakout_back.jpg){:height="180px" width="300px"}![spi_flash_mem_breakout_front](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/spi_flash_mem_breakout_front.jpg){:height="180px" width="300px"}
 
 The ICs are in SOIC package and I used 0805 sizes for the passives (decoupling caps), so hand-soldering was quite easy. One thing I did was elongate the IC pads in the layout to make hand-soldering easier. I also choose special hand-soldering footprints for the passives which are also a bit larger.
 But as it almost always is the case, there had to be a (stupid) mistake in my PCB: I forgot to set the space between the header connectors, so that it can fit in a breadboard. So now I have to connect them with jumper-wires, but that's not such a big deal.
