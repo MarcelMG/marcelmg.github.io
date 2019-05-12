@@ -8,3 +8,4 @@ permalink: /projects/
 * [a tiny software UART TX for the AVR ATtiny](https://marcelmg.github.io/software_uart/)
 * [create audio signals with PWM on the STM32F103](https://marcelmg.github.io/pwm_dac_sound)
 * [W25Q64JV SPI flash memory chip as external memory](https://marcelmg.github.io/spi_flash_memory/)
+* [the speaking compass](https://marcelmg.github.io/speaking_compass/)
