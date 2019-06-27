@@ -23,7 +23,12 @@ Power for the device is provided by a CR2032 lithium coin cell battery. Those ha
 
 Finally, here are pictures of the assembled device:
 
-![front_view](https://github.com/MarcelMG/BLE_thingy/raw/master/hardware/front_view.jpg){:height="300px" width="300px"}![back_view](https://github.com/MarcelMG/BLE_thingy/raw/master/hardware/back_view.jpg){:height="300px" width="300px"}
+
+<figure class="half">
+	<img src="https://github.com/MarcelMG/BLE_thingy/raw/master/hardware/front_view.jpg">
+	<img src="https://github.com/MarcelMG/BLE_thingy/raw/master/hardware/back_view.jpg">
+</figure>
+
 
 You can view the schematic [here (pdf)].
 
