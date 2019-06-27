@@ -7,7 +7,7 @@ title: BLEthingy part 1 - hardware
 
 #BLE module RN4871/I
 This module provides the BLE communication for *BLEthingy*. It communicates with the ATtiny3216 via UART with commands (like using the terminal on the PC). Additionaly the reset-pin and the wakeup-pin of the module are driven by the microcontroller. Using the wakeup-pin, we can put the RN4871/I to sleep and wake it up if we need to. This way we can minimize power-consumption drastically. The module is mounted on the PCB with castellated pads. During the PCB layout, it was necessary to respect some special requirements. There are areas beneath the module that shouldn't be filled with a ground plane, luckily in the KiCAD library the component was already available and the footprint was correct. Additionally, the datasheet advises to let the antenna side of the module stand out of the PCB for better performance. In my case I didn't do that because I wanted the PCB to be round. Instead I added a cutout in the PCB beneath the antenna area.
-![BLE_RF_cutout](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/BLE_RF_cutout.jpg)
+![BLE_RF_cutout](https://github.com/MarcelMG/marcelmg.github.io/raw/master/images/BLE_RF_cutout.jpg){:height="200px" width="200px"}
 Soldering the module by hand turned out a bit tricky because of the fine pitch of the pins, but in the end it turned out ok.
 
 #microcontroller ATtiny3216
@@ -30,7 +30,6 @@ Finally, here are pictures of the assembled device:
 </figure>
 
 
-You can view the schematic [here (pdf)].
 
 In the next post, I'll talk about the software side of this project.
 
