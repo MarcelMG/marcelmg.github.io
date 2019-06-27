@@ -1,3 +1,7 @@
+---
+layout: post
+title: BLEthingy part 1 - hardware
+---
 *BLEthingy* is a battery-powered, wireless sensor node device. The device is powered by a CR2032 coin cell battery and is designed to consume as little power as possible. Wireless connectivity is provided via Bluetooth Low Energy (BLE), which allows for low-power transmissions e.g. as a so called [Beacon](https://en.wikipedia.org/wiki/Bluetooth_low_energy_beacon). The BLE functionality is provided by a RN4871/I module. It communicates via UART with the main microcontroller. The microcontroller used is an ATtiny3216 which is part of Microchip's new tiny-1 series. Despite the name, it's very different than the previous ATtiny's (like the ATtiny85, ATtiny13 etc.) and has a lot more features and peripherals. Another feature I wanted to include is motion detection, for this purpose an accelerometer ADXL345 is used. In this post I'll talk about the hardware design of the device.
 
 
