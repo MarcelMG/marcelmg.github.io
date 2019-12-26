@@ -3,7 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 ---
-
+* [DIY Soldering Station Controller](https://marcelmg.github.io/soldering_station/)
 * [BLEthingy part 2 - software](https://marcelmg.github.io/ble_thingy_pt2_software/)
 * [BLEthingy part 1 - hardware](https://marcelmg.github.io/ble_thingy_pt1_hardware/)
 * [using PWM to create analog signals: centered vs. left-aligned mode](https://marcelmg.github.io/pwm_left_vs_centered/)
