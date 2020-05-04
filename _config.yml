@@ -49,6 +49,9 @@ url: http://marcelmg.github.io
 # then add in the baseurl here, like this: "/repository-name"
 baseurl: ""
 
+# show posts even if their date lies in the future
+future: true
+
 #
 # !! You don't need to change any of the configuration flags below !!
 #
