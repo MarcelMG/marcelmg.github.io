@@ -46,29 +46,29 @@ In case of the SNES gamepad, it has 12 buttons that provide a logical value (i.e
 
 __ALIGN_BEGIN static uint8_t HID_SNES_GAMEPAD_ReportDesc[HID_SNES_GAMEPAD_REPORT_DESC_SIZE]  __ALIGN_END =
 {
-	    0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
-	    0x09, 0x05,                    // USAGE (Game Pad)
-	    0xa1, 0x01,                    // COLLECTION (Application)
-	    0xa1, 0x00,                    //   COLLECTION (Physical)
-	    0x05, 0x09,                    //     USAGE_PAGE (Button)
-	    0x19, 0x01,                    //     USAGE_MINIMUM (Button 1)
-	    0x29, 0x0c,                    //     USAGE_MAXIMUM (Button 12)
-	    0x15, 0x00,                    //     LOGICAL_MINIMUM (0)
-	    0x25, 0x01,                    //     LOGICAL_MAXIMUM (1)
-	    0x75, 0x01,                    //     REPORT_SIZE (1)
-	    0x95, 0x10,                    //     REPORT_COUNT (16)
-	    0x81, 0x02,                    //     INPUT (Data,Var,Abs)
-	    0xc0,                          //     END_COLLECTION
-	    0xc0                           // END_COLLECTION
+  0x05, 0x01, // USAGE_PAGE (Generic Desktop)
+  0x09, 0x05, // USAGE (Game Pad)
+  0xa1, 0x01, // COLLECTION (Application)
+  0xa1, 0x00, // COLLECTION (Physical)
+  0x05, 0x09, // USAGE_PAGE (Button)
+  0x19, 0x01, // USAGE_MINIMUM (Button 1)
+  0x29, 0x0c, // USAGE_MAXIMUM (Button 12)
+  0x15, 0x00, // LOGICAL_MINIMUM (0)
+  0x25, 0x01, // LOGICAL_MAXIMUM (1)
+  0x75, 0x01, // REPORT_SIZE (1)
+  0x95, 0x10, // REPORT_COUNT (16)
+  0x81, 0x02, // INPUT (Data,Var,Abs)
+  0xc0,       // END_COLLECTION
+  0xc0        // END_COLLECTION
 };
 
 {% endhighlight %} 
 
-In the file "usbd_hid.c", replace HID_MOUSE_ReportDesc\[HID_MOUSE_REPORT_DESDC_SIZE\] with our new HID_SNES_GAMEPAD_ReportDesc\[HID_SNES_GAMEPAD_REPORT_DESC_SIZE\]* from above. Additionally, replace the #define HID_MOUSE_REPORT_DESDC_SIZE with HID_SNES_GAMEPAD_REPORT_DESC_SIZE in "usbd_hid.h" and change the value (in this case, the size of the report descriptor above is 26).
+In the file "usbd_hid.c", replace *HID_MOUSE_ReportDesc\[HID_MOUSE_REPORT_DESDC_SIZE\]* with our new *HID_SNES_GAMEPAD_ReportDesc\[HID_SNES_GAMEPAD_REPORT_DESC_SIZE\]* from above. Additionally, replace the *#define HID_MOUSE_REPORT_DESDC_SIZE* with *HID_SNES_GAMEPAD_REPORT_DESC_SIZE* in "usbd_hid.h" and change the value (in this case, the size of the report descriptor above is 26).
 
-The last thing to do is replace all occurences of HID_MOUSE_ReportDesc and HID_MOUSE_REPORT_DESDC_SIZE in the project with HID_SNES_GAMEPAD_ReportDesc and HID_SNES_GAMEPAD_REPORT_DESC_SIZE respectively. You can do this easily by using the Search&Replace function in your IDE.
+The last thing to do is replace all occurences of *HID_MOUSE_ReportDesc* and *HID_MOUSE_REPORT_DESDC_SIZE* in the project with *HID_SNES_GAMEPAD_ReportDesc* and *HID_SNES_GAMEPAD_REPORT_DESC_SIZE* respectively. You can do this easily by using the Search&Replace function in your IDE.
 
-Now we can jump to the "main.c" and write a simple test code to test our USB gamepad. Inside the *while(1)*-loop of *main() 
+Now we can jump to the "main.c" and write a simple test code to test our USB gamepad inside the *while(1)*-loop of *main()*: 
 
 
 {% highlight c %}
@@ -100,20 +100,20 @@ This simple test code should simulate buttonpresses on all 12 buttons, so we can
 ![usb_snes_gamepad_windows](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/usb_snes_gamepad_windows.png)
 
 
-Once the USB part of the project works correctly, we can go on and work out the connection with the SNES gamepad. A great source of information about the hardware pinout and communication protocol of the SNES gamepad can be found at [2](http://www.repairfaq.org/REPAIR/F_SNES.html). The communication protocol for the SNES gamepad is very simple: The SNES (or in our case, the microcontroller) toggles the *LATCH*-pin once by pushing the line high for 12µs and then pulling it low again. 6µs after the falling edge, the controller outputs 16bits of data serially via the *CLOCK*- and *DATA*-lines. To realize this communication, we can use the microcontroller's SPI peripheral. The connection is as follows:
+Once the USB part of the project works correctly, we can go on and work out the connection with the SNES gamepad. A great source of information about the hardware pinout and communication protocol of the SNES gamepad can be found at [[2]](http://www.repairfaq.org/REPAIR/F_SNES.html). The communication protocol for the SNES gamepad is very simple: The SNES (or in our case, the microcontroller) toggles the *LATCH*-pin once by pushing the line high for 12µs and then pulling it low again. 6µs after the falling edge, the controller outputs 16bits of data serially via the *CLOCK*- and *DATA*-lines. To realize this communication, we can use the microcontroller's SPI peripheral. The connection is as follows:
 
 
-* SNES  | STM32F103
-* ------|----------
-* +5V   | +3.3V
-* CLOCK | PA5 (SPI1 SCK)
-* DATA  | PA6 (SPI1 MISO)
-* LATCH | PA4
+|SNES  | STM32F103      |
+|------|----------------|
+|+5V   | +3.3V          |
+|CLOCK | PA5 (SPI1 SCK) |
+|DATA  | PA6 (SPI1 MISO)|
+|LATCH | PA4            |
 
 
 Note that the SNES gamepad is normally powered with a +5V-supply by the SNES, but I found that mine works also with +3.3V. If you want to use a +5V supply for the SNES gamepad, you should use the alternate pins for SPI1 or SPI2 and use another GPIO-pin for LATCH. This is because on the STM32F103, the pins PA4, PA5 and PA6 are not 5V-tolerant (other pins are).
 
-Since I didn't want to modify my SNES gamepad, I 3D-printed a connector. Luckily, I found a !(model)[https://www.thingiverse.com/thing:1753655] on *thingiverse* so I didn't have to measure and model it from scratch (Thanks to thingiverse-user *shantigilbert*).
+Since I didn't want to modify my SNES gamepad, I 3D-printed a connector. Luckily, I found a ![model](https://www.thingiverse.com/thing:1753655) on *thingiverse* so I didn't have to measure and model it from scratch (Thanks to thingiverse-user *shantigilbert*).
 
 Now that the hardware connections are made, let's take a look at the software. To configure the SPI peripheral, I will again use the CubeMX tool. Be careful when using it, because if we re-generate code, CubeMX will overwrite all the changes we have previously made to the USB-related files (usbd_hid.c/.h etc.). So back-them up before re-opening CubeMX and re-copy them later. To configure the SPI1-peripheral (under *Connectivity->SPI1*) select the mode "Receive Only Master". This means that the microcontroller acts as the Master, that is initiates the communication. Since we only need unidirectional communication for reading the SNES gamepad, we choose "Receive Only" mode (though we could also use Full-Duplex-Mode, it actually doesn't matter much here). We also disable the "Hardware NSS Signal", since here we don't use a Chip Select (CS a.k.a. NSS) signal. The appropriate parameters for communicating with the SNES gamepad are:
 
@@ -124,7 +124,7 @@ Now that the hardware connections are made, let's take a look at the software. T
 
 The SNES uses a clock with a period of 12µs for the communication with the gamepad (i.e. 83.3kHz clock frequency). With the STM32F103's main clock frequency configured to 72MHz and the highest prescaler of 256 for SPI1, the clock frequency of SPI1 will be 281.25kHz. Although it is much higher, it still works flawlessly. The last thing to do in CubeMX is configure a GPIO pin (in my case I used pin PA4) as output and name it "LATCH_GPIO" (User Label) for convenience.
 
-After generating code, we can go back to our main.c and implement the readout of the SNES gamepad. First we need to implement the toggling of the *LATCH*-line that triggers a new communication transfer. To create the precisely timed delays of 12µs and 6µs, I used the [*DWT_delay*-library](https://github.com/keatis/dwt_delay/). We simply need to initialize the delay functionality like this:
+After generating code, we can go back to our main.c and implement the readout of the SNES gamepad. First we need to implement the toggling of the *LATCH*-line that triggers a new communication transfer. To create the precisely timed delays of 12µs and 6µs, I used the [*DWT_delay* library](https://github.com/keatis/dwt_delay/). We simply need to initialize the delay functionality like this:
 
 
 {% highlight c %}
@@ -192,7 +192,7 @@ uint8_t USBD_HID_SendReport(USBD_HandleTypeDef  *pdev,
                             uint8_t *report,
                             uint16_t len)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
   if (pdev->dev_state == USBD_STATE_CONFIGURED)
   {
@@ -219,7 +219,7 @@ uint8_t USBD_HID_SendReport(USBD_HandleTypeDef  *pdev,
                             uint8_t *report,
                             uint16_t len)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
   if (pdev->dev_state == USBD_STATE_CONFIGURED)
   {
@@ -274,9 +274,10 @@ So at last, the main-loop looks like this:
 
 Now we can compile the program (select "Release" target) and flash it to the microcontroller. 
 
+```
 SIDE NOTE:
 Don't launch the program in debug mode. If you use the debugger and enter a breakpoint, the USB connection will break down. This is because the microcontroller which acts as a USB device always has to be capable at any time to respond to the USB Host (the PC). If the program stops, it won't respond and the connection will fail. So compile with Target=Release and flash it using an external tool, e.g. the *STM32 ST-Link Utility*.
-
+```
 
 If everything works as expected, we can now enjoy playing some classic games using an authentic SNES gamepad! By the way, this works also on Android smartphones/tablets with USB-OTG functionality if you have the appropriate cable. I tested it successfully with the emulator-suite [RetroArch](https://www.retroarch.com/).
 
@@ -286,7 +287,9 @@ If everything works as expected, we can now enjoy playing some classic games usi
 
 
 Literature:
+
 [1] [Tutorial about USB HID Report Descriptors](https://eleccelerator.com/tutorial-about-usb-hid-report-descriptors/)
+
 [2] [Super Nintendo Entertainment System: pinouts & protocol](http://www.repairfaq.org/REPAIR/F_SNES.html)
 
 
