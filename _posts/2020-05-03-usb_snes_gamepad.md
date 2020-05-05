@@ -113,7 +113,7 @@ Once the USB part of the project works correctly, we can go on and work out the 
 
 Note that the SNES gamepad is normally powered with a +5V-supply by the SNES, but I found that mine works also with +3.3V. If you want to use a +5V supply for the SNES gamepad, you should use the alternate pins for SPI1 or SPI2 and use another GPIO-pin for LATCH. This is because on the STM32F103, the pins PA4, PA5 and PA6 are not 5V-tolerant (other pins are).
 
-Since I didn't want to modify my SNES gamepad, I 3D-printed a connector. Luckily, I found a ![model](https://www.thingiverse.com/thing:1753655) on *thingiverse* so I didn't have to measure and model it from scratch (Thanks to thingiverse-user *shantigilbert*).
+Since I didn't want to modify my SNES gamepad, I 3D-printed a connector. Luckily, I found a [model](https://www.thingiverse.com/thing:1753655) on *thingiverse* so I didn't have to measure and model it from scratch (Thanks to thingiverse-user *shantigilbert*).
 
 Now that the hardware connections are made, let's take a look at the software. To configure the SPI peripheral, I will again use the CubeMX tool. Be careful when using it, because if we re-generate code, CubeMX will overwrite all the changes we have previously made to the USB-related files (usbd_hid.c/.h etc.). So back-them up before re-opening CubeMX and re-copy them later. To configure the SPI1-peripheral (under *Connectivity->SPI1*) select the mode "Receive Only Master". This means that the microcontroller acts as the Master, that is initiates the communication. Since we only need unidirectional communication for reading the SNES gamepad, we choose "Receive Only" mode (though we could also use Full-Duplex-Mode, it actually doesn't matter much here). We also disable the "Hardware NSS Signal", since here we don't use a Chip Select (CS a.k.a. NSS) signal. The appropriate parameters for communicating with the SNES gamepad are:
 
@@ -284,6 +284,7 @@ If everything works as expected, we can now enjoy playing some classic games usi
 
 ![usb_snes_gamepad_foto](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/usb_snes_gamepad_foto.jpg)
 
+You can find the source code for this project [here](https://github.com/MarcelMG/usb_hid_snes_gamepad).
 
 
 Literature:
