@@ -102,6 +102,11 @@ This simple test code should simulate buttonpresses on all 12 buttons, so we can
 
 Once the USB part of the project works correctly, we can go on and work out the connection with the SNES gamepad. A great source of information about the hardware pinout and communication protocol of the SNES gamepad can be found at [[2]](http://www.repairfaq.org/REPAIR/F_SNES.html). The communication protocol for the SNES gamepad is very simple: The SNES (or in our case, the microcontroller) toggles the *LATCH*-pin once by pushing the line high for 12µs and then pulling it low again. 6µs after the falling edge, the controller outputs 16bits of data serially via the *CLOCK*- and *DATA*-lines. To realize this communication, we can use the microcontroller's SPI peripheral. The connection is as follows:
 
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
 
 |SNES  | STM32F103      |
 |------|----------------|
@@ -109,7 +114,7 @@ Once the USB part of the project works correctly, we can go on and work out the 
 |CLOCK | PA5 (SPI1 SCK) |
 |DATA  | PA6 (SPI1 MISO)|
 |LATCH | PA4            |
-
+{: .tablelines}
 
 Note that the SNES gamepad is normally powered with a +5V-supply by the SNES, but I found that mine works also with +3.3V. If you want to use a +5V supply for the SNES gamepad, you should use the alternate pins for SPI1 or SPI2 and use another GPIO-pin for LATCH. This is because on the STM32F103, the pins PA4, PA5 and PA6 are not 5V-tolerant (other pins are).
 
@@ -274,10 +279,11 @@ So at last, the main-loop looks like this:
 
 Now we can compile the program (select "Release" target) and flash it to the microcontroller. 
 
-```
-SIDE NOTE:
+
+*SIDE NOTE:
 Don't launch the program in debug mode. If you use the debugger and enter a breakpoint, the USB connection will break down. This is because the microcontroller which acts as a USB device always has to be capable at any time to respond to the USB Host (the PC). If the program stops, it won't respond and the connection will fail. So compile with Target=Release and flash it using an external tool, e.g. the *STM32 ST-Link Utility*.
-```
+*
+
 
 If everything works as expected, we can now enjoy playing some classic games using an authentic SNES gamepad! By the way, this works also on Android smartphones/tablets with USB-OTG functionality if you have the appropriate cable. I tested it successfully with the emulator-suite [RetroArch](https://www.retroarch.com/).
 
