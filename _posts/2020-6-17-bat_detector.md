@@ -54,24 +54,46 @@ $$40\text{kHz}-1\text{kHz}=39\text{kHz}$$ and
 
 $$40\text{kHz}+1\text{kHz}=41\text{kHz}$$.
 
-We can use the same principle to down-convert the bat-signal to a lower (audible) frequency range. To do this, we have to multiply the signal with a cso called local oscillator (LO) frequency that is the difference between the signal's carrier frequency and the desired target carrier frequency (in this case, the audible frequency at which we want to hear the bat calls). This technique is called [Heterodyning](https://en.wikipedia.org/wiki/Heterodyne). In our example, let's say we want to hear the bat calls at a frequency of 5kHz, which is well audible for humans. Then, we have to multiply the bat signal with a LO frequency of
-
-$$40\textbf{kHz}-5\textbf{kHz}=35\textbf{kHz}$$.
-
-
+These are called the lower and upper side bands (*LSB* and *USB*):
 
 $$f_{LSB}=f_c-f_{chirp}$$
+
 $$f_{USB}=f_c+f_{chirp}$$
+
+Now we can use the same principle to down-convert the bat-signal to a lower (audible) frequency range. To do this, we have to multiply the signal with a so called local oscillator (LO) frequency that is the difference between the signal's carrier frequency and the desired target carrier frequency (in this case, the audible frequency at which we want to hear the bat calls). This technique is called [Heterodyning](https://en.wikipedia.org/wiki/Heterodyne). In our example, let's say we want to hear the bat calls at a frequency of 5kHz, which is well audible for humans. Then, we have:
+
+
 $$f_{target}=5\text{kHz}$$
+
+
 $$f_{LO}=f_c-f_{target}=35kHz$$
+
+
 $$LO(t)=cos(2\pi f_{LO}t)$$
+
+
+If we plug everything together, we can rewrite the terms using again the trigonometric identity as follows:
+
+
 $$bat(t)\cdot LO(t)=\biggl(\frac{1}{2}cos(2\pi f_{LSB}t)-\frac{1}{2}cos(2\pi f_{USB}t)\biggr)\cdot cos(2\pi f_{LO}t)$$
+
+
 $$=\frac{1}{2}cos(2\pi f_{LSB}t)\cdot cos(2\pi f_{LO}t)-\frac{1}{2}cos(2\pi f_{USB}t)\cdot cos(2\pi f_{LO}t)$$
+
+
 $$=\frac{1}{4}\biggl(cos\bigl(2\pi(f_{LSB}-f_{LO})t\bigr)+cos\bigl(2\pi(f_{LSB}+f_{LO})t\bigr)-cos\bigl(2\pi(f_{USB}-f_{LO})t\bigr)-cos\bigl(2\pi(f_{USB}+f_{LO})t\bigr)\biggr)$$
+
+
 $$=\frac{1}{2}\biggl(\frac{1}{2}cos\bigl(2\pi(f_{LSB}-f_{LO})t\bigr)-\frac{1}{2}cos\bigl(2\pi(f_{USB}-f_{LO})t\bigr)+\frac{1}{2}cos\bigl(2\pi(f_{LSB}+f_{LO})t\bigr)-\frac{1}{2}cos\bigl(2\pi(f_{USB}+f_{LO})t\bigr)\biggr)$$
+
+
 $$=\frac{1}{2}\biggl(\frac{1}{2}cos\bigl(2\pi(\underbrace{f_c-f_{LO}}_{=f_{target}}-f_{chirp})t\bigr)-\frac{1}{2}cos\bigl(2\pi(\underbrace{f_c-f_{LO}}_{=f_{target}}+f_{chirp})t\bigr)+\frac{1}{2}cos\bigl(2\pi(\underbrace{f_c+f_{LO}}_{:=f_2}-f_{chirp})t\bigr)-\frac{1}{2}cos\bigl(2\pi(\underbrace{f_c+f_{LO}}_{:=f_2}+f_{chirp})t\bigr)\biggr)$$
+
+
 $$=\frac{1}{2}sin(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}sin(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
 
+
+As we can see, the first term $$sin(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$ is exactly what we wanted, the envelope "chirp"-signal modulated with our audible target frequency of in this case, 5kHz. The second term is again the "chirp"-envelope signal, but modulated with a much higher frequency of $$f_2=f_c+f_{LO}$$ which is in this case 75kHz. This second component is well outside the human hearing range and can easily be filtered out using a low-pass filter in the bat detector circuit.
 
 <audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/bat_sample.mp3" controls preload></audio>
 
