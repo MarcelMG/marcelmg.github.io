@@ -4,6 +4,12 @@ title: Heterodyne Ultrasonic Bat Detector
 ---
 <script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 
+
+<figure>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Kleine_Hufeisennase.jpg" alt="F. C. Robiller / naturlichter.de / CC BY-SA (https://creativecommons.org/licenses/by-sa/3.0)"/>
+  <figcaption>Lesser Horseshoe Bat, © F. C. Robiller / naturlichter.de / CC BY-SA (https://creativecommons.org/licenses/by-sa/3.0)</figcaption>
+</figure>
+
 <a title="F. C. Robiller / naturlichter.de / CC BY-SA (https://creativecommons.org/licenses/by-sa/3.0)" href="https://commons.wikimedia.org/wiki/File:Kleine_Hufeisennase.jpg"><img width="512" alt="Kleine Hufeisennase" src="https://upload.wikimedia.org/wikipedia/commons/9/96/Kleine_Hufeisennase.jpg"></a>
 
 This project is about builduing a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
