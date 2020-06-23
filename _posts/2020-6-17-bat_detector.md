@@ -21,7 +21,7 @@ While searching for a suitable microphone, I considered the following options:
 
 Instead, I found the *Knowles SPU0410LR5H* Microphone ([datasheet pdf](https://www.knowles.com/docs/default-source/model-downloads/spu0410lr5h-qb-revh.pdf)) which is a MEMS-type microphone. According to the datasheet, this microphone has a relatively flat frequency response up to 80kHz, so it is very well suited for this application. Additionally, it has an internal preamplifier, which achieves a high SNR. The main drawback of this microphone is that the package is by no means hobbyist-friendly. The microphone is **tiny** (only 3.76 x 3mm!) and has the connection pads *beneath* the package. While browsing around the web, I found [this page](https://hackaday.io/project/165081-blue-board-01/details) by *hackaday.io*-user [Alan Green](https://hackaday.io/alang) who also uses the same microphone in his project. He had the great idea of creating a special PCB footprint for the component that allows it to be soldered by hand. The trick is to elongate the pad so they reach out of the component. Then the pads can be heated up with the soldering iron and transfer the heat beneath the component. So I took this idea and went on designing a small PCB that contains the microphone and a dual op-amp. The latter provides a buffered virtual ground (at half the supply voltage) as well as an amplifier stage with 20dB of gain (i.e. x10). At first I was a little sceptic if soldering this microphone by hand, but it turned out to work really well, out of the 6 PCBs I soldered, all worked fine. I recorded the soldering process, you can watch the video [here](https://vimeo.com/430343841). As always, the design files for the PCB are open source and can be grabbed [here](https://github.com/MarcelMG/MEMS_Microphone_SPU0410_PCB/).
 
-<p float="center">
+<p align="center">
   <img src="https://github.com/MarcelMG/MEMS_Microphone_SPU0410_PCB/raw/master/pcb_soldered_image2.jpg" width="280" />
   <img src="https://github.com/MarcelMG/MEMS_Microphone_SPU0410_PCB/raw/master/front_view.jpg" width="280" /> 
   <img src="https://github.com/MarcelMG/MEMS_Microphone_SPU0410_PCB/raw/master/back_view.jpg" width="280" />
@@ -159,7 +159,7 @@ So if we again look at schematic, the output of the mixer is fed into a buffer s
 
 For the bat detector circuit I didn't design a PCB but soldered the prototype on perfboard. If you want to design your own, you can grab the KiCAD-schematic [here](https://github.com/MarcelMG/Heterodyne_Bat_Detector) and design your own PCB version. I 3D-printed an enclosure for the circuit and two knobs for the volume and frequency control. Power is automatically switched on when a plug is insterted into the headphone jack and small red LED signals the power. The microphone PCB is also mounted inside the enclosure behind a small hole (on the right side in the picture).
 
-<p float="center">
+<p align="center">
   <img src="https://raw.githubusercontent.com/MarcelMG/Heterodyne_Bat_Detector/master/bat_detector_image1.jpg" width="300" />
 </p>
 
