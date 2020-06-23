@@ -141,9 +141,9 @@ $$bat(t)\cdot LO(t)=\frac{1}{2}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\
 
 So we can calculate
 
-$$bat(t)\cdot r(t)=bat(t)\cdot\frac{4}{\pi}\biggl(LO(t)+{LO}_{3}(t)+{LO}_{5}(t)+\ldots$$
+$$bat(t)\cdot r(t)=bat(t)\cdot\frac{4}{\pi}\biggl(LO(t)+{LO}_{3}(t)+{LO}_{5}(t)+\ldots\biggr)$$
 
-$$=\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
+$$=bat(t)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
 
 $$=\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
 
@@ -155,29 +155,36 @@ $$+\ldots$$
 
 So again, we see that the first term $$\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$ is the result we want, but now with the non-ideal analog switch mixer, we get many more terms that we don't want. But the great thing is, that all these other unwanted frequency components are of much higher frequencies that our target frequency $$f_{target}$$. So we can use a low-pass filter to filter those components out, so that the resulting signal is approximately $$\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$.
 
+So if we again look at schematic, the output of the mixer is fed into a buffer stage and then into a RC-low-pass filter with a corner frequency of ~7kHz. The last amplifier stage provides some adjustable gain and drives the output (e.g. headphones). Additionally, a few notes about the component choices. I wanted to power the whole circuit from a single Lithium-Ion battery, since I have many of them salvaged from old cellphones etc. So the entire circuit should work with a supply voltage between 3V and 4V. Therefore, the timer IC 555 and the quad analog switch 4066 should be selected as CMOS versions, which work already at 3V. I used the *CD4066B* and the *ILC555*. The quad operational amplifier should also work at low voltages, I chose the MCP6004 which is my usual choice since it also has rail-to-rail in-&output as well as a high enough GBW of 1MHz.
 
+For the bat detector circuit I didn't design a PCB but soldered the prototype on perfboard. If you want to design your own, you can grab the KiCAD-schematic [here](https://github.com/MarcelMG/Heterodyne_Bat_Detector) and design your own PCB version. I 3D-printed an enclosure for the circuit and two knobs for the volume and frequency control. Power is automatically switched on when a plug is insterted into the headphone jack and small red LED signals the power. The microphone PCB is also mounted inside the enclosure behind a small hole (on the right side in the picture).
 
-$$bat(t)\cdot r(t)=bat(t)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
-$$=\biggl(\frac{1}{2}cos\bigl(2\pi (f_c-f_{chirp})t\bigr)-\frac{1}{2}cos\bigl(2\pi (f_c+f_{chirp})t\bigr)\biggr)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
+<p float="center">
+  <img src="https://raw.githubusercontent.com/MarcelMG/Heterodyne_Bat_Detector/master/bat_detector_image1.jpg" width="300" />
+</p>
 
+To calibrate the frequency scale, I probed the 555's output with the oscilloscope and marked the frequencies on the enclosure. Afterwards I drew up a scale on the PC and printed it.
 
+**So now finally what we were all waiting for: What does a bat sound like with a bat detector?**
+Here's a sample I recorded at approx. 10 p.m., of a bat I saw flying around near a street light in a park. The frequency was tuned to around 40 or 45 kHz.
 
 <audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/bat_sample.mp3" controls preload></audio>
 
+To record the sound, I held my phone to the headphones of the bat detector, but it feld pretty stupid so I went looking for a better solution. It turns out that most smartphones have a microphone input at the headphone port when using a 4-pole 3.5mm plug. So I designed an adapter that allows to connect the bat detector to the smartphone's microphone input and connect headphones to the smartphone's headphone output. The 2.2k resistor is necessary for the phone to recognize that a "microphone" is plugged in, the 3.3µF capacitor is for decoupling the signal.
 
+<p float="left">
+  <img src="https://github.com/MarcelMG/Miscellaneous/blob/master/Phone_ext_Mic_adapter/schematic.png" width="500" />
+  <img src="https://raw.githubusercontent.com/MarcelMG/Miscellaneous/master/Phone_ext_Mic_adapter/adapter_cable.jpg" width="250" />
+</p>
 
-$$r(t):=sign\bigl(sin(2\pi ft)\bigr) \hspace{3mm} \text{with} \hspace{3mm}sign(x)=\left\{
-\begin{array}{ll}
-1 & x \geq 0 \\
--1 & x < 0 \\
-\end{array}
-\right.$$
+I had to find a recording app that allows to simultanously playback and record, so that I could listen in real-time to the bats while recording. I used [RecForge II](https://play.google.com/store/apps/details?id=dje073.android.modernrecforge&hl=en) which worked fine for me, but there are probably other apps aswell.
 
+If you want to build a heterodyne bat recorder yourself and need a preassembled ultrasonic MEMS microphone PCB, you can find it
 
+* [here](https://de.elv.com/elv-mikrofon-mems1-komplettbausatz-151456) sells from Germany to EU
+* or [here](https://micbooster.com/ultrasonic-microphones/146-ultrasonic-mic-board.html) sells from U.K. to worldwide
+* or if you are in Germany (or EU), I have still some assembled and tested PCBs left, which I can send you for a small fee (which covers material and shipping costs), just send me an email at $$\text{mmg123[at]gmx.de}$$.
 
-$$r(t)$$ is an odd function, since $$r(-t)=-r(t)$$
+The rest of the components should be easy to get where ever you usually buy your components.
 
-r(t)=\sum\limits_{k=0}^{\infty} \frac{4}{\pi} sin\bigl(2\pi (2k+1)f_{LO}t\bigr)=\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)
-
-
-
+I hope you enjoyed reading about this project and keep your eyes open for the next one!
