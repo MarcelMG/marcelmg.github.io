@@ -101,7 +101,7 @@ $$=\frac{1}{2}\biggl(-\frac{1}{2}sin\bigl(2\pi(\underbrace{f_c-f_{LO}}_{=f_{targ
 $$=\frac{1}{2}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
 
 
-As we can see, the first term $$sin(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$ is exactly what we wanted, the envelope "chirp"-signal modulated with our audible target frequency of in this case, 5kHz. The second term is again the "chirp"-envelope signal, but modulated with a much higher frequency of $$f_2=f_c+f_{LO}$$ which is in this case 75kHz. This second component is well outside the human hearing range and can easily be filtered out using a low-pass filter in the bat detector circuit.
+As we can see, the first term $$cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$ is exactly what we wanted, the envelope "chirp"-signal modulated with our audible target frequency of in this case, 5kHz. The second term is again the "chirp"-envelope signal, but modulated with a much higher frequency of $$f_2=f_c+f_{LO}$$ which is in this case 75kHz. This second component is well outside the human hearing range and can easily be filtered out using a low-pass filter in the bat detector circuit.
 
 
 So now that we know in theory how the heterodyning principle can be used to build a bat detector, how can we realize it in a practical electronic circuit? The crucial part is the *multiplication* of the incoming signal with the LO-signal, which as it turns out is not trivial in practical electronics. There are in fact circuits that achieve analog multiplication (like the e.g. [Gilbert cell](https://en.wikipedia.org/wiki/Gilbert_cell)) and we could use an appropriate IC (like the [NE612](https://en.wikipedia.org/wiki/NE612)) together with a sine wave generator circuit (e.g. [Wien bridge oscillator](https://en.wikipedia.org/wiki/Wien_bridge_oscillator)). But this solution quite complicated and the Analog Multiplier ICs like the NE612 or similar are expensive and difficult to find.
@@ -131,15 +131,27 @@ $$r(t):=sign\bigl(sin(2\pi ft)\bigr) \hspace{3mm} \text{with} \hspace{3mm}sign(x
 \end{array}
 \right.$$
 
-So the output of the mixer is the product
+So the output of the mixer is the product $$bat(t)\cdot r(t)$$. But that alone doesn't explain anything yet, to understand how the frequency mixing happens we have to apply some mathematical wizardry called the [Fourier series decomposition](https://mathworld.wolfram.com/FourierSeries.html). This time I will spare you the derivation and present you the result. Basically, using the Fourier series, we can show that
 
-$$bat(t)\cdot r(t)$$
+$$r(t)=\sum\limits_{k=0}^{\infty} \frac{4}{\pi} sin\bigl(2\pi (2k+1)f_{LO}t\bigr)=\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$.
 
-But that alone doesn't explain anything yet, to understand how the frequency mixing happens we have to apply some mathematical wizardry called the [Fourier series decomposition](https://mathworld.wolfram.com/FourierSeries.html). This time I will spare you the derivation and present you the result. Basically, we can show that
+So our +1/-1 square wave is composed of an infinite number of sine-waves with the main frequency $$f_{LO}$$ and it's odd multiples. So what can we make with that information? If we for now ignore the constant factor $$\frac{4}{\pi}$$, we see that $$r(t)$$ is the sum of $$LO(t)$$ and other additional higher frequencies $${LO}_{3}(t)$$, $${LO}_{5}(t)$$ and so on. From the previous calculations, we have shown that
 
-$$r(t)=\sum\limits_{k=0}^{\infty} \frac{4}{\pi} sin\bigl(2\pi (2k+1)f_{LO}t\bigr)=\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
+$$bat(t)\cdot LO(t)=\frac{1}{2}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
 
-So our +1/-1 square wave is composed of an infinite number of sine-waves with the main frequency $$f_{LO}$$ and it's odd multiples. So what can we make with that information? Well, let's take again a look at the product
+So we can calculate
+
+$$bat(t)\cdot r(t)=bat(t)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
+
+$$=\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
+
+$$+\frac{1}{2}cos(2\pi (3f_{LO}-f_c)t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi (3f_{LO}+f_c)t)\cdot sin(2\pi f_{chirp}t)$$
+
+$$+\frac{1}{2}cos(2\pi (5f_{LO}-f_c)t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi (5f_{LO}+f_c)t)\cdot sin(2\pi f_{chirp}t)$$
+
+
+
+
 
 $$bat(t)\cdot r(t)=bat(t)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
 $$=\biggl(\frac{1}{2}cos\bigl(2\pi (f_c-f_{chirp})t\bigr)-\frac{1}{2}cos\bigl(2\pi (f_c+f_{chirp})t\bigr)\biggr)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
