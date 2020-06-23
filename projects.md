@@ -3,6 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 ---
+* [Heterodyne Ultrasonic Bat Detector](https://marcelmg.github.io/bat_detector/)
 * [USB SNES Gamepad using STM32F103 microcontroller](https://marcelmg.github.io/usb_snes_gamepad/)
 * [DIY Soldering Station Controller](https://marcelmg.github.io/soldering_station/)
 * [BLEthingy part 2 - software](https://marcelmg.github.io/ble_thingy_pt2_software/)
