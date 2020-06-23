@@ -173,7 +173,7 @@ Here's a sample I recorded at approx. 10 p.m., of a bat I saw flying around near
 To record the sound, I held my phone to the headphones of the bat detector, but it feld pretty stupid so I went looking for a better solution. It turns out that most smartphones have a microphone input at the headphone port when using a 4-pole 3.5mm plug. So I designed an adapter that allows to connect the bat detector to the smartphone's microphone input and connect headphones to the smartphone's headphone output. The 2.2k resistor is necessary for the phone to recognize that a "microphone" is plugged in, the 3.3µF capacitor is for decoupling the signal.
 
 <p float="left">
-  <img src="https://github.com/MarcelMG/Miscellaneous/blob/master/Phone_ext_Mic_adapter/schematic.png" width="500" />
+  <img src="https://github.com/MarcelMG/Miscellaneous/raw/master/Phone_ext_Mic_adapter/schematic.png" width="500" />
   <img src="https://raw.githubusercontent.com/MarcelMG/Miscellaneous/master/Phone_ext_Mic_adapter/adapter_cable.jpg" width="250" />
 </p>
 
