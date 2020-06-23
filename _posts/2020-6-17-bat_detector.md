@@ -141,7 +141,9 @@ $$bat(t)\cdot LO(t)=\frac{1}{2}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\
 
 So we can calculate
 
-$$bat(t)\cdot r(t)=bat(t)\cdot\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
+$$bat(t)\cdot r(t)=bat(t)\cdot\frac{4}{\pi}\biggl(LO(t)+{LO}_{3}(t)+{LO}_{5}(t)+\ldots$$
+
+$$=\frac4\pi\bigl(sin(2\pi f_{LO}t)+sin(2\pi\cdot3f_{LO}t)+sin(2\pi \cdot5f_{LO}t)+\ldots \bigr)$$
 
 $$=\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi f_{2}t)\cdot sin(2\pi f_{chirp}t)$$
 
@@ -149,7 +151,9 @@ $$+\frac{1}{2}cos(2\pi (3f_{LO}-f_c)t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(
 
 $$+\frac{1}{2}cos(2\pi (5f_{LO}-f_c)t)\cdot sin(2\pi f_{chirp}t)+\frac{1}{2}cos(2\pi (5f_{LO}+f_c)t)\cdot sin(2\pi f_{chirp}t)$$
 
+$$+\ldots$$
 
+So again, we see that the first term $$\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$ is the result we want, but now with the non-ideal analog switch mixer, we get many more terms that we don't want. But the great thing is, that all these other unwanted frequency components are of much higher frequencies that our target frequency $$f_{target}$$. So we can use a low-pass filter to filter those components out, so that the resulting signal is approximately $$\frac{2}{\pi}cos(2\pi f_{target}t)\cdot sin(2\pi f_{chirp}t)$$.
 
 
 
