@@ -1,4 +1,4 @@
----
+﻿---
 layout: post
 title: Heterodyne Ultrasonic Bat Detector
 ---
@@ -187,7 +187,7 @@ If you want to build a heterodyne bat recorder yourself and need a preassembled 
 
 * [ELV shop](https://de.elv.com/elv-mikrofon-mems1-komplettbausatz-151456) (sells from Germany to EU)
 * [MicBooster shop](https://micbooster.com/ultrasonic-microphones/146-ultrasonic-mic-board.html) (sells worldwide from U.K.)
-* or if you are in Germany (or EU), I have still some assembled and tested PCBs left, which I can send you for a small fee (which covers material and shipping costs), just send me an email at $$\text{mmg123[at]gmx.de}$$.
+* ~~or if you are in Germany (or EU), I have still some assembled and tested PCBs left~~ *UPDATE: all gone!*
 
 If you use one of the PCBs from the two shops, they don't include the op-amp circuit which is on my PCB, so you will have to build it too. *Note: I am not affiliated with the 2 shops I linked to above, neither do I benefit from endorsing their product. I just provide you the link because it can be hard to find a SPU0410 breakout board to buy.*
 The rest of the components should be easy to get where ever you usually buy your components.
