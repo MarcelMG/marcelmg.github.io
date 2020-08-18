@@ -468,7 +468,7 @@ plt.show()
 {% endhighlight %}
 
 
-<audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/sample_yes.wav" controls preload></audio>
+<audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/sample_yes.mp3" controls preload></audio>
 
 
     candidates:
