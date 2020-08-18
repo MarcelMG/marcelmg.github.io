@@ -1,7 +1,8 @@
-﻿---
+---
 layout: post
 title: SNES gamepad USB converter with STM32F103
 ---
+
 Playing classic games on the PC or tablet etc. is great fun, but without the real gamepad the experience is not authentic. In this post, I will show how to build a simple converter using the STM32F103 microcontroller that allows to connect a Super Nintendo (SNES) gamepad to the PC as a generic USB HID (Human Interface Device) gamepad. This has the huge advantage that the solution is plug-and-play, no drivers are needed on any OS.
 
 
