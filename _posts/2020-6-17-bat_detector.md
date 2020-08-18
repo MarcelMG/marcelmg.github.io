@@ -1,8 +1,8 @@
-<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 ---
 layout: post
 title: Heterodyne Ultrasonic Bat Detector
 ---
+
 This project is about builduing a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
 
 
@@ -172,6 +172,7 @@ To calibrate the frequency scale, I probed the 555's output with the oscilloscop
 **So now finally what we were all waiting for: What does a bat sound like with a bat detector?**
 Here's a sample I recorded at approx. 10 p.m., of a bat I saw flying around near a street light in a park. The frequency was tuned to around 40 or 45 kHz.
 
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 <audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/bat_sample.mp3" controls preload></audio>
 
 To record the sound, I held my phone to the headphones of the bat detector, but it feld pretty stupid so I went looking for a better solution. It turns out that most smartphones have a microphone input at the headphone port when using a 4-pole 3.5mm plug. So I designed an adapter that allows to connect the bat detector to the smartphone's microphone input and connect headphones to the smartphone's headphone output. The 2.2k resistor is necessary for the phone to recognize that a "microphone" is plugged in, the 3.3µF capacitor is for decoupling the signal.
