@@ -1,3 +1,13 @@
+body {
+  word-wrap: break-word; /* force long words to break */
+  overflow-wrap: break-word; /* newer syntax standard that replaces word-wrap */
+}
+
+code,
+pre,
+samp {
+  white-space: pre-wrap; /* force long lines to break */
+}
 
 .highlight {
   background-color: #fafafa;
@@ -6,10 +16,6 @@
   margin: 20px 0 20px 0;
   -moz-box-shadow: 1px 1px rgba(0,0,0,0.1);
   -webkit-box-shadow: 1px 1px rgba(0,0,0,0.1);
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow: visible;
-  overflow-wrap: break-word;
 }
 
 code {
