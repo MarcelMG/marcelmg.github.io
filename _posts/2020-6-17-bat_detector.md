@@ -1,15 +1,15 @@
-﻿---
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+---
 layout: post
 title: Heterodyne Ultrasonic Bat Detector
 ---
-<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+This project is about builduing a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
+
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/96/Kleine_Hufeisennase.jpg)
 
 *Lesser Horseshoe Bat*, © F. C. Robiller/naturlichter.de, [CC BY-SA](https://creativecommons.org/licenses/by-sa/3.0)
 
-
-This project is about builduing a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
 
 There are three basic types of bat detectors (see [[1]](https://en.wikipedia.org/wiki/Bat_detector#Bat_detector_types)), in this case I developed a *heterodyne* detector. The advantage of this type is that you can listen to the bats in real-time. The disadvantage is, that using a heterodyne detector it is more difficult to distinguish different bat species compared to a high-frequency recording. I will explain how the heterodyne detector works later, first let's take a look at the microphone needed to detect ultrasounds.
 
