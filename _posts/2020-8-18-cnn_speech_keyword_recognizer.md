@@ -110,7 +110,7 @@ classes = np.array(classes, dtype=np.int)
 ![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/cnn_out1.png)
  
 
-Next we'll define two functions to compute some [features](https://en.wikipedia.org/wiki/Feature_(machine_learning)) of the audio samples and another function which loads the sample wav-file and then computes the features. Before computing features, it is a good idea to normalize our input data. Depending on your recording device and other parameters, the amplitudes of the recorded audio signals may vary drastically and might even have an offset. Thus we can subtract the mean value to remove the offset and divide by the absolute maximum value of the signal, so that it's new range lies between -1.0 and +1.0.
+Next we'll define two functions to compute some [features](https://en.wikipedia.org/wiki/Feature_(machine_learning)) of the audio samples and another function which loads the sample wav-file and then computes the features. Before computing features, it is a good idea to normalize our input data. Depending on your recording device and other parameters, the amplitudes of the recorded audio signals may vary drastically and might even have an offset. Thus we can subtract the mean value to remove the offset and divide by the absolute maximum value of the signal, so that it's new range lies between -1.0 and +1.0. Another useful trick is to add some artificial noise to the training data. The idea behind is that by adding noise, the neural network will learn to ignore the noise (since it occurs in all samples of all classes) thus becoming more robust against noise in new data.
 
 In this case, we'll use the so called "Mel-Frequency Cepstrum Coefficients", which are very commonly used for speech recognition tasks. The MFCCs are computed as follows:
 
@@ -467,9 +467,9 @@ plt.imshow(recorded_feature.reshape(99, 20).T, aspect="auto")
 plt.show()
 {% endhighlight %}
 
-
+This is a sample of me saying the word "yes".
 <audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/sample_yes.mp3" controls preload></audio>
-
+The result is:
 
     candidates:
     -----------------------------
@@ -486,7 +486,7 @@ plt.show()
 ![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/output_31_1.png)
 
 
-As we see in this case, the results look really good. If the probability for the best candidate is very high and those of the second-best and third-best candidates are pretty low, the prediction seems quite trustworthy.  
+As we see in this case, the result looks really good. If the probability for the best candidate is very high and those of the second-best and third-best candidates are pretty low, the prediction seems quite trustworthy.  
 Additionally, we can see that the feauture computation and CNN model prediction are quite fast. The total execution time is around 100ms, which means that our method is quite able to work in "real-time".  
 
 So now let's adapt and extend this little demo to work in real-time. For this, we'll use a buffer that contains 5 succeeding snippets of 3200 samples, i.e. 200ms each. We implement this audio buffer as a ringbuffer, which means that every time a new 200ms long snippet has been recorded, the oldest snippet in the buffer is discarded, the buffer is moved one step back and the newest snippet is put at the last position. This way, our buffer is updated every 200ms and always contains the last 1s of recorded audio. Since our prediction takes approximately 100ms and we have 200ms between each update, we have enough time for computation and achieve a latency of <200ms (so I think it can be considered "real time" in this context).  
@@ -540,4 +540,17 @@ with sd.InputStream(samplerate=16000, blocksize=3200, device=None, channels=1, d
     sd.sleep(60*1000)
 {% endhighlight %}
 
+This is a short demo video:
 <video src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/cnn_keyword_recognition_demo.mp4" width="800" height="270" controls preload></video>
+As we can see the performance is quite good, although there are some wrong recognitions. We could decrease the probability of wrong recognitions by increasing the probability threshold, but this would at the same time increase the probability of missing a correct recognition, so there is a trade-off.  
+
+The resulting performance is of course not to be compared with state-of-the art speech recognizers, but it is still nice to see that such acceptable results can be achieved offline (i.e. with the recognition running on your own PC and not on a server). To improve the performance there are some possibilities, e.g.:
+* larger training dataset (although this one is already quite large)
+* tweaking the CNN model architecture
+* training with different parameters and/or optimization algorithm
+* using more (or less?) of the MFC coefficients
+* adding natural recorded noise of different types instead of artificially random gaussian noise  
+
+I hope this journey into Machine Learning, CNNs and speech recognition was as interesting for you as it was for me.
+Stay tuned for the next project!
+
