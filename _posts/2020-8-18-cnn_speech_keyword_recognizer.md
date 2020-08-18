@@ -11,9 +11,6 @@ display(HTML("<style>.container { width:90% !important; }</style>"))
 ```
 
 
-<style>.container { width:90% !important; }</style>
-
-
 Next, we will import all the libraries that we need.
 
 
@@ -107,15 +104,8 @@ with tqdm(total=num_samples_per_class*20) as pbar:
 classes = np.array(classes, dtype=np.int)
 ```
 
-    loading dataset...
-    
-
-
-    HBox(children=(FloatProgress(value=0.0, max=40000.0), HTML(value='')))
-
-
-    
-    
+![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/cnn_out1.png)
+ 
 
 Next we'll define two functions to compute some [features](https://en.wikipedia.org/wiki/Feature_(machine_learning)) of the audio samples and another function which loads the sample wav-file and then computes the features. Before computing features, it is a good idea to normalize our input data. Depending on your recording device and other parameters, the amplitudes of the recorded audio signals may vary drastically and might even have an offset. Thus we can subtract the mean value to remove the offset and divide by the absolute maximum value of the signal, so that it's new range lies between -1.0 and +1.0.
 
@@ -141,8 +131,8 @@ In this case, we'll use the so called "Mel-Frequency Cepstrum Coefficients", whi
 * The log-energies of adjacent filters usually correlate strongly. Therefore, a [Discrete Cosine Transform](https://en.wikipedia.org/wiki/Discrete_cosine_transform) is applied to the log filterbank energies of each snippet. The resulting values are called *Cepstral coefficients*. The zeroth coefficient represents the average log-energy in each snippet, it may or may not be discarded (here we'll keep it as a feature). Usually, only a subset, e.g. the first 8-12 Cepstral coefficients are used (here we'll use 20), the rest are discarded 
 
 For more details about MFCC, a good source is:  
-*pp. 85-72 in K.S. Rao and Manjunath K.E., "Speech Recognition Using Articulatory and Excitation Source Features", 2017, Springer*  
-(pp. 85-92 available for preview at [https://link.springer.com/content/pdf/bbm%3A978-3-319-49220-9%2F1.pdf])
+*pp. 85-72 in K.S. Rao and Manjunath K.E., "Speech Recognition Using Articulatory and Excitation Source Features", 2017, Springer*
+(pp. 85-92 available for preview at [here](https://link.springer.com/content/pdf/bbm%3A978-3-319-49220-9%2F1.pdf))
 
 
 Thankfully we don't have to implement the MFCC computation ourselves, we'll use the library [python_speech_features](https://python-speech-features.readthedocs.io/en/latest/).
@@ -190,15 +180,7 @@ with tqdm(total=num_samples_per_class*num_classes) as pbar:
         pbar.update()
 ```
 
-    features.shape (40000, 99, 20)
-    pre-computing features from audio files...
-    
-
-
-    HBox(children=(FloatProgress(value=0.0, max=40000.0), HTML(value='')))
-
-
-    
+![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/cnn_out2.png)
     
 
 Now we can save the pre-computed training dataset containing the features of the training samples and their class labels.  
