@@ -402,9 +402,9 @@ plt.colorbar()
 plt.show()
 ```
 
-
-![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/output_28_0.png)
-
+<p align="center">
+  <img src="https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/output_28_0.png" />
+</p>
 
 Ok, now we can try the keyword recognizer ourselves!  
 
@@ -539,20 +539,3 @@ with sd.InputStream(samplerate=16000, blocksize=3200, device=None, channels=1, d
 
 
 ```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
-
-
-```python
-
-```
