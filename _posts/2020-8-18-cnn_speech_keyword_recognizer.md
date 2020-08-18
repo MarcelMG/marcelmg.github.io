@@ -2,6 +2,9 @@
 layout: post
 title: Real-time speech keyword recognizer using a Convolutional Neural Network (CNN)
 ---
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+
+
 For convenience, we can increase the display width of the Notebook to make better use of widescreen format
 
 
@@ -464,6 +467,10 @@ plt.imshow(recorded_feature.reshape(99, 20).T, aspect="auto")
 plt.show()
 {% endhighlight %}
 
+
+<audio src="" controls preload></audio>
+
+
     candidates:
     -----------------------------
     1.)	yes	:	99.8%
@@ -533,7 +540,4 @@ with sd.InputStream(samplerate=16000, blocksize=3200, device=None, channels=1, d
     sd.sleep(60*1000)
 {% endhighlight %}
 
-{% highlight python %}
-    on	:	99.2%
-    -----------------------------
-{% endhighlight %}
+<video src="" width="480" height="320" controls preload></video>
