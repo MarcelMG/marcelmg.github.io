@@ -5,10 +5,10 @@ title: Real-time speech keyword recognizer using a Convolutional Neural Network 
 For convenience, we can increase the display width of the Notebook to make better use of widescreen format
 
 
-```python
+{% highlight python %}
 from IPython.core.display import display, HTML
 display(HTML("<style>.container { width:90% !important; }</style>"))
-```
+{% endhighlight %}
 
 
 Next, we will import all the libraries that we need.
