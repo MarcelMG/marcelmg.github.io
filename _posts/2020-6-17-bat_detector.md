@@ -3,7 +3,7 @@ layout: post
 title: Heterodyne Ultrasonic Bat Detector
 ---
 
-This project is about builduing a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
+This project is about building a so called bat detector, i.e. a device that lets you listen to and record the sounds emitted by bats. As you probably know, bats emit ultrasonic sounds for the purpose of echolocation. These sounds lie in a frequency range above the human audible range and thus can't be heard directly. A bat detector uses a special microphone to capture these high-frequency sounds and convert them to a sound within the human audio frequency range.
 
 
 ![](https://upload.wikimedia.org/wikipedia/commons/9/96/Kleine_Hufeisennase.jpg)
