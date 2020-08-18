@@ -1,4 +1,3 @@
-<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 ---
 layout: post
 title: Real-time Speech Keyword Recognition using a Convolutional Neural Network (CNN)
@@ -469,6 +468,7 @@ plt.show()
 {% endhighlight %}
 
 This is a sample of me saying the word "yes".
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 <audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/sample_yes.mp3" controls preload></audio>
 The result is:
 
