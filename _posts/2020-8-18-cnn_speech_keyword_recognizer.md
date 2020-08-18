@@ -14,7 +14,7 @@ display(HTML("<style>.container { width:90% !important; }</style>"))
 Next, we will import all the libraries that we need.
 
 
-```python
+{% highlight python %}
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -32,7 +32,7 @@ from datetime import datetime
 from scipy.signal import butter, sosfilt
 from timeit import default_timer as timer
 from IPython.display import clear_output
-```
+{% endhighlight %}
 
 The Google Speech Command Dataset which we'll be using contains 30 different words, 20 core words and 10 auxiliary words. In this project we'll be using only the 20 core words.
 
@@ -40,7 +40,7 @@ The Google Speech Command Dataset which we'll be using contains 30 different wor
 We can define ourselves a dictionary that maps each different word to a number and a list that does the inverse mapping. This is necessary because we need numerical class labels for our Neural Network.
 
 
-```python
+{% highlight python %}
 word2index = {
     # core words
     "yes": 0,
@@ -66,7 +66,7 @@ word2index = {
 }
 
 index2word = [word for word in word2index]
-```
+{% endhighlight %}
 
 Next, we will go trough the dataset and save all the paths to the data samples in a list.
 
@@ -80,7 +80,7 @@ Somehow some samples in the dataset are not exactly that size, we skip those.
 Additionally we'll use a nice [tqdm](https://tqdm.github.io/) progress bar to make it more fancy. In the end, we should have gathered a total of 40000 samples.
 
 
-```python
+{% highlight python %}
 num_classes = len(word2index)
 num_samples_per_class = 2000
 speech_commands_dataset_basepath = Path(r"C:\Users\tunin\Desktop\Marcel_Python\speech_command_dataset")
@@ -102,7 +102,7 @@ with tqdm(total=num_samples_per_class*20) as pbar:
             if count >= num_samples_per_class:
                 break
 classes = np.array(classes, dtype=np.int)
-```
+{% endhighlight %}
 
 ![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/cnn_out1.png)
  
@@ -138,7 +138,7 @@ For more details about MFCC, a good source is:
 Thankfully we don't have to implement the MFCC computation ourselves, we'll use the library [python_speech_features](https://python-speech-features.readthedocs.io/en/latest/).
 
 
-```python
+{% highlight python %}
 # compute MFCC features from audio signal
 def audio2feature(audio):
     audio = audio.astype(np.float)
@@ -161,14 +161,14 @@ def wav2feature(filepath):
     # compute MFCC coefficients
     features = python_speech_features.mfcc(data, samplerate=16000, winlen=0.025, winstep=0.01, numcep=20, nfilt=40, nfft=512, lowfreq=100, highfreq=None, preemph=0.97, ceplifter=22, appendEnergy=True, winfunc=np.hamming)
     return features
-```
+{% endhighlight %}
 
 If we compute the features for one audio sample, we see that the feature shape is (99, 20). The first index is that of the 10ms long snippet of the 1s long audio signal, so we have 1s/10ms-1=99 snippets. The second dimension is the number of MFC coefficients, in this case we have 20.
 
 Now we can load all audio samples and pre-compute the MFCC features for each sample. Note that this will take quite a long time!
 
 
-```python
+{% highlight python %}
 feature_shape = wav2feature(samples[0]).shape
 features = np.empty((num_classes*num_samples_per_class, )+(feature_shape), dtype=np.float)
 print("features.shape", features.shape)
@@ -178,7 +178,7 @@ with tqdm(total=num_samples_per_class*num_classes) as pbar:
     for k, sample in enumerate(samples):
         features[k] = wav2feature(sample)
         pbar.update()
-```
+{% endhighlight %}
 
 ![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/cnn_out2.png)
     
@@ -187,20 +187,20 @@ Now we can save the pre-computed training dataset containing the features of the
 This way, we won't have to re-compute the features next time.
 
 
-```python
+{% highlight python %}
 # save computed features and classes to hard drive
 np.save("mfcc_plus_energy_features_40000x99x20", features)
 np.save("classes", np.array(classes, dtype=np.int))
-```
+{% endhighlight %}
 
 We can load the pre-computed features and class labels as follows:
 
 
-```python
+{% highlight python %}
 # load pre-computed training features dataset and training class labels
 features = np.load("mfcc_plus_energy_features_40000x99x20.npy")
 classes = np.load("classes.npy")
-```
+{% endhighlight %}
 
 Now the next thing to do is divide our dataset into a training dataset and a validation dataset.  
 The training dataset is used for training our Neural Network, i.e. the Neural Network will learn to correctly predict a sample's class label based on it's features.
@@ -216,10 +216,10 @@ At the beginning of the training, both accuracies will typically improve. At one
 Another method to mitigate overfitting is the use of so called [Dropout-Layers](https://en.wikipedia.org/wiki/Dilution_(neural_networks)) which randomly set a subset of the weigths of a layer to zero. In this project, we won't use them.
 
 
-```python
+{% highlight python %}
 train_data, validation_data, train_classes, validation_classes = train_test_split(features, classes,
                                                                       test_size=0.30, random_state=42, shuffle=True)
-```
+{% endhighlight %}
 
 The next step is to define our Neural Network's architecture. The network can be described by a sequence of layers.  
 
@@ -263,7 +263,7 @@ Next, we add two more stacks of convolutional and max pooling layer. For the las
 In the next step, we add a couple of fully connected (Keras calles them "dense") layers, just like in a regular Multi Layer Perceptron (MLP). Each layer reduces the feature dimensionality, so that the last layer has an output dimension equal to the number of different classes (in our case words). Using the Softmax activation function on the last dense layer, we can interpret the networks output as an a posteriori probability distribution of the sample belonging to a certain class, given the audio sample's input features.
 
 
-```python
+{% highlight python %}
 keras.backend.clear_session() # clear previous model (if cell is executed more than once)
 
 ### CNN MODEL DEFINITION ###
@@ -288,7 +288,7 @@ model.add(keras.layers.Dense(num_classes, activation='softmax'))
 
 # print model architecture
 model.summary()
-```
+{% endhighlight %}
 
     Model: "sequential"
     _________________________________________________________________
@@ -321,12 +321,12 @@ model.summary()
 Now that our CNN model is defined, we can configure it for training. Therefore we choose an optimization algorithm, e.g. Stochastic Gradient Descent (SGD) or ADAM. Additionally, we need to specify a loss function for training. The loss function determines, how the performance of the network is evaluated. In this case, we have a multi-class classification problem, where the class labels are represented as integer values. In this case, the sparse categorical cross-entropy loss can be used. If our class labels were encoded using a one-hot encoding scheme, we would use the normal (non-sparse) variant. As a metric we specify the accuracy so that after every epoch, the accuracy of the network is computed.
 
 
-```python
+{% highlight python %}
 sgd = keras.optimizers.SGD()
 loss_fn = keras.losses.SparseCategoricalCrossentropy() # use Sparse because classes are represented as integers not as one-hot encoding
 
 model.compile(optimizer=sgd, loss=loss_fn, metrics=["accuracy"])
-```
+{% endhighlight %}
 
 Before starting the training, it can be useful to define an early stopping criterion in order to avoid overfitting as explained previously. We define a callback function which checks if the accuracy on the validation set has increased in the last 5 epochs and stops training if this is not the case. After stopping, the model is reverted to the state (i.e. the weigths) which had achieved the best result.  
 
@@ -337,7 +337,7 @@ Finally, we can start training using *model.fit()*. We specify the training and 
 Sidenote: It seems that matplotlib's *notebook* mode (which is for use in Jupyter Notebooks) doesn't work well with the live plotting, so we use *inline* mode.
 
 
-```python
+{% highlight python %}
 early_stopping = tf.keras.callbacks.EarlyStopping(monitor="val_accuracy", patience=5, restore_best_weights=True)
 plt.close()
 
@@ -347,7 +347,7 @@ history = model.fit(train_data,
                     epochs=100, 
                     validation_data=(validation_data, validation_classes),
                     callbacks=[PlotLossesKeras(), early_stopping])
-```
+{% endhighlight %}
 
 
 ![png](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/output_23_0.png)
@@ -366,16 +366,16 @@ As we can see, during the training, the losses decrease and the accuracy increas
 After training, we can save our model for later use if we want to.
 
 
-```python
+{% highlight python %}
 # save model
 model.save(datetime.now().strftime("%d_%m_%Y__%H_%M")+".h5")
-```
+{% endhighlight %}
 
 
-```python
+{% highlight python %}
 # load model
 model = keras.models.load_model("05_08_2020__19_23.h5")
-```
+{% endhighlight %}
 
 Another useful tool for evaluating a classifier's performance is a so called confusion matrix.
 To compute the confusion matrix, we use our network to predict the class labels of all samples in the validation set.
@@ -384,7 +384,7 @@ The confusion matrix plots the probability with which a sample of a certain clas
 The interesting thing to see is that the confusion matrix allows us to see if a certain pair of class labels are often falsely classified, i.e. confused with each other. If two classes would often be confused (e.g. because two words sound very similar) we would find a high value outside the diagonal. For example, if we look closely at the matrix below, we can see a slightly larger value (darker color) at "go"-"no". This means that these two words are more often confused with eachother, which is plausible since they sound very similar. The ideal result would be a value of $\frac1N$ ($N$=number of classes) on the diagonals (assuming classes are equally represented in the dataset) and zeros everywhere outside the diagonal.
 
 
-```python
+{% highlight python %}
 # plot confusion matrix
 y = np.argmax(model.predict(validation_data), axis=1)
 cm = confusion_matrix(validation_classes, y,  normalize="all")
@@ -400,7 +400,7 @@ plt.tick_params(labelsize=12)
 plt.title('Confusion matrix ')
 plt.colorbar()
 plt.show()
-```
+{% endhighlight %}
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/output_28_0.png" />
@@ -415,7 +415,7 @@ A more elegant solution is to record for a longer duration, e.g. 3s and then ext
 After defining a function to extract the 1s snippet, we configure the samplerate and device for recording. You can find out the number of the devices via *sd.query_devices()*. After recording for 3s and extracting the 1s snippet we can play it back. Then we compute the MFCC features and add a "fake" batch dimension to our sample before feeding it into our CNN mmodel for prediction. This is needed because the model expects batches of $\geq1$ samples as input, so since we have only one sample, we append a dimension to get a batch of one single sample. Additionally, we'll time the computation and model prediction to see how fast it is. We can normalize the CNN model's output to get a probability distribution (not strictly mathematical, but we can interpret it that way). Then we get the 3 candidates with highest probability and print the result. We'll also plot the raw audio signal and visulize the MFC coefficients.
 
 
-```python
+{% highlight python %}
 def extract_loudest_section(audio, length):
     audio = audio[:, 0].astype(np.float) # to avoid integer overflow when squaring
     audio_pw = audio**2 # power
@@ -423,10 +423,10 @@ def extract_loudest_section(audio, length):
     conv = np.convolve(audio_pw, window, mode="valid")
     begin_index = conv.argmax()
     return audio[begin_index:begin_index+length]
-```
+{% endhighlight %}
 
 
-```python
+{% highlight python %}
 sd.default.samplerate = 16000
 sd.default.channels = 1, 2 # mono record, stereo playback
 
@@ -462,7 +462,7 @@ plt.plot(recording)
 plt.subplot(212)
 plt.imshow(recorded_feature.reshape(99, 20).T, aspect="auto")
 plt.show()
-```
+{% endhighlight %}
 
     candidates:
     -----------------------------
@@ -489,7 +489,7 @@ To implement the buffer in python, we can make use of numpy's [roll()](https://n
 We define a callback function with an appropriate signature for the sounddevice Stream API (see [here](https://python-sounddevice.readthedocs.io/en/0.4.0/api/streams.html#sounddevice.Stream)) that updates the audio buffer and makes a new prediction each time a new snippet is recorded. We use a simple threshold of 70% probability to check if a word has been recognized. When a word is recognized, it will also appear in the buffer after the next couple of updates, so it will be recognized more than once in a row. To avoid this, we can implement a timeout that ignores a recognized word, if the same word has already been recognized shortly before.
 
 
-```python
+{% highlight python %}
 audio_buffer = np.zeros((5, 3200))
 last_recognized_word = None
 last_recognition_time = 0
@@ -522,20 +522,18 @@ def audio_stream_callback(indata, frames, time, status):
             clear_output(wait=True) # clear ouput as soon as new output is available to replace it
             print("%s\t:\t%2.1f%%" % (word, best_candidate_probability*100))
             print("-----------------------------")
-```
+{% endhighlight %}
 
 Now we can finally start the real-time demo of our CNN keyword recognizer. Therefore we start an input stream which calls our callback function each time a new block of 3200 samples has been recorded. We'll let the recognizer run for one minute so we have plenty of time to try it out.
 
 
-```python
+{% highlight python %}
 # REALTIME KEYWORD RECOGNITION DEMO (60s long)
 with sd.InputStream(samplerate=16000, blocksize=3200, device=None, channels=1, dtype="float32", callback=audio_stream_callback):
     sd.sleep(60*1000)
-```
+{% endhighlight %}
 
+{% highlight python %}
     on	:	99.2%
     -----------------------------
-    
-
-
-```python
+{% endhighlight %}
