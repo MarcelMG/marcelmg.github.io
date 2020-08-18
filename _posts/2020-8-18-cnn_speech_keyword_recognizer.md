@@ -3,18 +3,14 @@ layout: post
 title: Real-time Speech Keyword Recognition using a Convolutional Neural Network (CNN)
 ---
 
+For this project I will adventure myself away from electronics and embedded systems into the real of Machine Learning and speech recognition. I recently started to gain interest in this domain and wanted to gain more practical experience in addition to the theoretical knowledge about the topic that I already had. In this project, I'll guide you through creating a Convolutional Neural Network model which will be able to recognize a vocabulary of 20 different keywords in real-time.  
+You may wonder what's the purpose of a speech recognizer with such a limited vocabulary. But there are useful real world applications. Such simple recognizers can work offline on a rather low-power device and recognize a "wake word" (like the famous "Alexa", "Siri" or "Cortana"), after which the device starts to send the recording to online servers that will process the rest of the sentence.  
 
+This project is realized in Python using [Jupyter Notebook](https://jupyter.org/). You can grab the *.ipynb file [here](https://github.com/MarcelMG/CNN_Speech_Keyword_Recognition/blob/master/CNN_Speech_Keyword_Recognition.ipynb) if you want to try it yourself. As a neural network framework I will be using [Keras](https://keras.io/), which uses Tensorflow under the hood. Keras provides an abstraction layer to ease the use of Tensorflow. THE alternative to Tensorflow is [PyTorch](https://pytorch.org/), which I have also tried. I found it to be a bit more low-level, which on one hand allows for more flexibility for experts but may also discourage beginners.  
 
-For convenience, we can increase the display width of the Notebook to make better use of widescreen format
+Now let's dive right into the code, which we'll be going through step by step.
 
-
-{% highlight python %}
-from IPython.core.display import display, HTML
-display(HTML("<style>.container { width:90% !important; }</style>"))
-{% endhighlight %}
-
-
-Next, we will import all the libraries that we need.
+First, we will import all the libraries and functions that we need.
 
 
 {% highlight python %}
@@ -32,7 +28,6 @@ import sounddevice as sd
 %matplotlib inline
 import matplotlib.pyplot as plt
 from datetime import datetime
-from scipy.signal import butter, sosfilt
 from timeit import default_timer as timer
 from IPython.display import clear_output
 {% endhighlight %}
@@ -545,12 +540,13 @@ This is a short demo video:
 <video src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/cnn_keyword_recognition_demo.mp4" width="800" height="270" controls preload></video>
 As we can see the performance is quite good, although there are some wrong recognitions. We could decrease the probability of wrong recognitions by increasing the probability threshold, but this would at the same time increase the probability of missing a correct recognition, so there is a trade-off.  
 
-The resulting performance is of course not to be compared with state-of-the art speech recognizers, but it is still nice to see that such acceptable results can be achieved offline (i.e. with the recognition running on your own PC and not on a server). To improve the performance there are some possibilities, e.g.:
+The resulting performance is of course not to be compared with state-of-the art speech recognizers, but it is still nice to see that such acceptable results can be achieved offline (i.e. with the recognition running on your own PC and not on a server). To improve the performance there are some possibilities I can think of:
 * larger training dataset (although this one is already quite large)
 * tweaking the CNN model architecture
 * training with different parameters and/or optimization algorithm
 * using more (or less?) of the MFC coefficients
 * adding natural recorded noise of different types instead of artificially random gaussian noise  
+* filter the recorded audio to emphasize the voice frequency range and remove noise 
 
 I hope this journey into Machine Learning, CNNs and speech recognition was as interesting for you as it was for me.
 Stay tuned for the next project!
