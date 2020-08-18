@@ -1,8 +1,9 @@
+<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 ---
 layout: post
 title: Real-time Speech Keyword Recognition using a Convolutional Neural Network (CNN)
 ---
-<script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
+
 
 
 For convenience, we can increase the display width of the Notebook to make better use of widescreen format
