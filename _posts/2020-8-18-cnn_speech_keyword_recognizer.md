@@ -468,7 +468,7 @@ plt.show()
 {% endhighlight %}
 
 
-<audio src="" controls preload></audio>
+<audio src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/sample_yes.wav" controls preload></audio>
 
 
     candidates:
@@ -540,4 +540,4 @@ with sd.InputStream(samplerate=16000, blocksize=3200, device=None, channels=1, d
     sd.sleep(60*1000)
 {% endhighlight %}
 
-<video src="" width="480" height="320" controls preload></video>
+<video src="https://github.com/MarcelMG/marcelmg.github.io/raw/master/misc/cnn_keyword_recognition_demo.mp4" width="800" height="270" controls preload></video>
