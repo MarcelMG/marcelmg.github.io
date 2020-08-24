@@ -4,6 +4,9 @@ title: Real-time Speech Keyword Recognition using a Convolutional Neural Network
 ---
 
 For this project I will adventure myself away from electronics and embedded systems into the real of Machine Learning and speech recognition. I recently started to gain interest in this domain and wanted to gain more practical experience in addition to the theoretical knowledge about the topic that I already had. In this project, I'll guide you through creating a Convolutional Neural Network model which will be able to recognize a vocabulary of 20 different keywords in real-time.  
+
+<!--excerpt-->
+
 You may wonder what's the purpose of a speech recognizer with such a limited vocabulary. But there are useful real world applications. Such simple recognizers can work offline on a rather low-power device and recognize a "wake word" (like the famous "Alexa", "Siri" or "Cortana"), after which the device starts to send the recording to online servers that will process the rest of the sentence.  
 
 This project is realized in Python using [Jupyter Notebook](https://jupyter.org/). You can grab the *.ipynb file [here](https://github.com/MarcelMG/CNN_Speech_Keyword_Recognition/blob/master/CNN_Speech_Keyword_Recognition.ipynb) if you want to try it yourself. As a neural network framework I will be using [Keras](https://keras.io/), which uses Tensorflow under the hood. Keras provides an abstraction layer to ease the use of Tensorflow. THE alternative to Tensorflow is [PyTorch](https://pytorch.org/), which I have also tried. I found it to be a bit more low-level, which on one hand allows for more flexibility for experts but may also discourage beginners.  
