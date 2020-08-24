@@ -5,6 +5,8 @@ title: create audio signals with PWM
 
 In this post I'm going to show how we can use PWM to playback audio on the STM32F103 microcontroller. In the [previous post](https://marcelmg.github.io/pwm_left_vs_centered/) I explained some theory about how to generate analog signals with PWM, now we'll see an example of how to realize it.
 
+<!--excerpt-->
+
 I am using the STM32F103 microcontroller, which has some nice features that are useful for this application. You can find very cheap boards by searching for "STM32F103C8T6" e.g. on ebay. They are about the size of a Arduino Nano and cost less than 5€. 
 
 Basically, the setup consists of 3 steps:
