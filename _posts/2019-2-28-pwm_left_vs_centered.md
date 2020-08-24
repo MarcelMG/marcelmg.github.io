@@ -5,6 +5,8 @@ title: PWM centered vs. left-aligned mode
 
 Puls-Width-Modulation (PWM) can be used to implement a simple digital-to-analog converter to create analog signals with a microcontroller. There exist two modes of PWM, a left aligned asymmetric mode and a centered symmetric mode.
 
+<!--excerpt-->
+
 In left aligned mode (also called *Fast PWM*), the timer/counter counts from 0 to its maximum (e.g. 255 for a 8bit timer) and resets to zero when the maximum is reached (a so called *overflow*). If we imagine plotting the counter value w.r.t. time, it would look like a sawtooth signal.
 
 In centered mode (also called *Phase correct PWM*), the timer/counter counts again from 0 to its maximum, and then instead of resetting, counts downward until it reaches zero. Thus, the counter value over time would look like a triangle signal.
