@@ -6,6 +6,8 @@ title: the speaking compass
 
 In the previous posts I showed how to store and playback audio files with the STM32F1 microcontroller and a SPI flash memory chip. Then I kept thinking about building something that uses audio output. Digging through my parts bin I came upon a QMC5883L magnetometer board that I bought long time ago. So I had the idea to build a speaking compass, that tells you the current orientation using voice audio output.
 
+<!--excerpt-->
+
 I had already written code to use the QMC5883L magnetometer using the I²C protocol and read raw values, I only had to write another function to calculate the orientation. The magnetometer measures the magnetic flux along three axes. If there are no other strong magnetic fields nearby, we can measure the earth's magnetic field. When the sensor is placed horizontally, we can approximately calculate the orientation by computing the angle of the vector of x-y-flux, i.e. the arctangens of the y- and x-values. In reality, there are deviations because of two reasons:
 * the earth's magnetic field is not exactly horizontal, depending on your location, this is called [magnetic inclination](https://en.wikipedia.org/wiki/Magnetic_dip)
 * the earth's magnetic north differs from the geographic north depending on your location, this is called [magnetic declination](https://en.wikipedia.org/wiki/Magnetic_declination)
