@@ -5,8 +5,6 @@ permalink: /about/
 ---
 Diese Webseite dient ausschließlich dazu, Informationen über mein Hobby mit anderen zu teilen und somit ausdrücklich keinen gewerblichen Zwecken.  
 
-# Impressum
-
 Angaben gemäß § 5 TMG  
 Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV   
 ![kontakt](https://raw.githubusercontent.com/MarcelMG/marcelmg.github.io/master/images/kontaktdaten.jpg) 
