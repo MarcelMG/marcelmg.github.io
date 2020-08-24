@@ -11,6 +11,8 @@ In the previous posts I showed how to store and playback audio files with the ST
 I had already written code to use the QMC5883L magnetometer using the I²C protocol and read raw values, I only had to write another function to calculate the orientation. The magnetometer measures the magnetic flux along three axes. If there are no other strong magnetic fields nearby, we can measure the earth's magnetic field. When the sensor is placed horizontally, we can approximately calculate the orientation by computing the angle of the vector of x-y-flux, i.e. the arctangens of the y- and x-values. In reality, there are deviations because of two reasons:
 * the earth's magnetic field is not exactly horizontal, depending on your location, this is called [magnetic inclination](https://en.wikipedia.org/wiki/Magnetic_dip)
 * the earth's magnetic north differs from the geographic north depending on your location, this is called [magnetic declination](https://en.wikipedia.org/wiki/Magnetic_declination)
+
+
 For this simple fun project I neglect both, since I only need very course values.
 
 The next step was to generate audio files to tell the user the orientation. I decided to create an audio snippet for every 45° 
