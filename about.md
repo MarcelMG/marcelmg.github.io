@@ -1,12 +1,12 @@
 ---
 layout: page
-title: About
+title: Impressum
 permalink: /about/
 ---
 Diese Webseite dient ausschließlich dazu, Informationen über mein Hobby mit anderen zu teilen und somit ausdrücklich keinen gewerblichen Zwecken.  
-Gehostet wird die Webseite vom kostenlosen Anbieter *GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA* gehostet. Beachten Sie daher auch die [GitHub Privacy Policy](https://help.github.com/articles/github-privacy-policy/) und [GitHub Global Privacy Practices](https://help.github.com/articles/global-privacy-practices/). .  
+Gehostet wird die Webseite vom kostenlosen Anbieter *GitHub, Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA*. Beachten Sie daher auch die [GitHub Privacy Policy](https://help.github.com/articles/github-privacy-policy/) und [GitHub Global Privacy Practices](https://help.github.com/articles/global-privacy-practices/). .  
 
-Impressum
+#Impressum
 
 Angaben gemäß § 5 TMG  
 Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV   
