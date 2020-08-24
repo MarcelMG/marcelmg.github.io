@@ -5,6 +5,8 @@ title: W25Q64JV SPI flash memory chip as external memory
 
 In the last blog post, I showed how we can create audio sginals using PWM on a STM32F1 microcontroller. But since the memory space available on the microcontroller is really small, we can't store a significant length of audio recordings. Thus I decided to use an external meory and went for a SPI flash memory chip, the Winbond W25Q64JV. In this post, I'll explain how to use it and read/write it with a microcontroller, in my case I use the STM32F103.
 
+<!--excerpt-->
+
 This memory chip has 8 Megabytes of space available and communicates via SPI (Serial Peripheral Interface). It also supports Dual and Quad SPI modes which allow for faster data throughoutput, but here I'll stick to simple SPI.
 
 To prototype easily, I decided to design a small breakout board for the chip. I used the open source software "KiCad" to layout the board.
