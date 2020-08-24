@@ -4,7 +4,11 @@ title: BLEthingy part 2 - software
 ---
 <script src="http://api.html5media.info/1.1.8/html5media.min.js"></script>
 
-In this post I will talk about the software part of my recent project *BLEthingy*. All the software for the microcontroller was written in C using ATMEL Studio. At first, I wrote some code to use and test some features of the microcontroller, like the UART (which is needed to communicate with the BLE module), the internal Real Time Clock (RTC) which can periodically wake up the microcontroller from sleep and the SPI peripheral needed to cummunicate with the accelerometer. Since the UART was already in use connected to the RN4871 module, I used a simple software UART transmitter to send messages to the PC for debugging.
+In this post I will talk about the software part of my recent project *BLEthingy*.  
+
+<!--excerpt-->
+
+All the software for the microcontroller was written in C using ATMEL Studio. At first, I wrote some code to use and test some features of the microcontroller, like the UART (which is needed to communicate with the BLE module), the internal Real Time Clock (RTC) which can periodically wake up the microcontroller from sleep and the SPI peripheral needed to cummunicate with the accelerometer. Since the UART was already in use connected to the RN4871 module, I used a simple software UART transmitter to send messages to the PC for debugging.
 
 
 The RN4871 module can be configured with commands sent via UART. [Here](https://github.com/MarcelMG/BLE_thingy/tree/master/software/Beacon_test) is an example that shows how to configure the module as a non-connectible BLE Beacon using sleep mode. This mode allows only to transmit the ID of the Beacon plus some additional data bytes. The advantage is, that no permanent connection (pairing) is needed and by varying the advertising (i.e. transmission) delay, we can achieve a very low power consumption. The BLE beacon advertisement data packet consist of a preamble (I chose the iBeacon format), the UUID (unique identifier of the device), two 2-byte variables called major and minor and one 1byte value to calibrate the TX-power to approximate the distance to the beacon. In my application I used the major and minor bytes for the data.
